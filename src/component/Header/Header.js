@@ -62,10 +62,13 @@ const Header = (props) => {
                                     </li>
                                     <li class="nav-item"> <Link class="nav-link text-dark" to="/orders"><i class='bi bi-people me-1'></i>Orders</Link>
                                     </li>
-                                    <li class="nav-item"> <a class="nav-link text-dark" href="/products"><i class='bi bi-grid-1x2-fill me-1'></i>Features</a>
+                                    <li class="nav-item"> <a class="nav-link text-dark" href="/products"><i class='bi bi-grid-1x2-fill me-1'></i>Products</a>
                                     </li>
                                     <li class="nav-item"> <a class="nav-link text-dark" href="#"><i class='bi bi-mic-mute-fill me-1'></i>Contact</a>
                                     </li>
+                                    <li class="nav-item"> <a class="nav-link text-dark" href="/about"><i class='bi bi-question-square-fill me-1'></i>About</a>
+                                    </li>
+
                                     {/* <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Dropdown
                                     </a>

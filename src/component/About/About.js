@@ -1,18 +1,16 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import Banner from '../banner/Banner';
 import useCart from '../data/useCart';
 import useProducts from '../data/useProducts';
 import Header from '../Header/Header';
-import Services from '../Services/Services';
-import './Home.css';
 
-const Home = () => {
+const About = () => {
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products);
     const data = {
-        name: "ALL OUT STOREEE",
+        name: "ALL OUT ECOMMERCE",
     }
+
     let total = 0;
     let shipping = 0;
     let quantity = 0;
@@ -30,14 +28,9 @@ const Home = () => {
 
     let grandtotal = total + shipping + tax;
     return (
-        <div className='conatiner'>
-            <Header className="mb-5"></Header>
+        <div>
+            <Header></Header>
             <Banner name={data}></Banner>
-            <Services></Services>
-
-
-
-
 
 
             <div className="cart">
@@ -90,8 +83,9 @@ const Home = () => {
 
 
             </div>
+
         </div>
     );
 };
 
-export default Home;
+export default About;
