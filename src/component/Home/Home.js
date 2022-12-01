@@ -5,6 +5,7 @@ import useCart from '../data/useCart';
 import useProducts from '../data/useProducts';
 import Header from '../Header/Header';
 import Services from '../Services/Services';
+import Trusted from '../Trusted/Trusted';
 import './Home.css';
 
 const Home = () => {
@@ -34,6 +35,7 @@ const Home = () => {
             <Header className="mb-5"></Header>
             <Banner name={data}></Banner>
             <Services></Services>
+            <Trusted></Trusted>
 
 
 

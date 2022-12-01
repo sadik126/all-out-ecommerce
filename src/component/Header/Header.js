@@ -64,7 +64,7 @@ const Header = (props) => {
                                     </li>
                                     <li class="nav-item"> <a class="nav-link text-dark" href="/products"><i class='bi bi-grid-1x2-fill me-1'></i>Products</a>
                                     </li>
-                                    <li class="nav-item"> <a class="nav-link text-dark" href="#"><i class='bi bi-mic-mute-fill me-1'></i>Contact</a>
+                                    <li class="nav-item"> <a class="nav-link text-dark" href="/contact"><i class='bi bi-mic-mute-fill me-1'></i>Contact</a>
                                     </li>
                                     <li class="nav-item"> <a class="nav-link text-dark" href="/about"><i class='bi bi-question-square-fill me-1'></i>About</a>
                                     </li>
