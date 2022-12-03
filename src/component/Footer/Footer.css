@@ -1,0 +1,107 @@
+         .btn-grad {
+             background-image: linear-gradient(to right, #1A2980 0%, #26D0CE 51%, #1A2980 100%);
+             margin: 10px;
+             padding: 15px 45px;
+             text-align: center;
+             text-transform: uppercase;
+             transition: 0.5s;
+             background-size: 200% auto;
+             color: white;
+             box-shadow: 0 0 20px #eee;
+             border-radius: 10px;
+             display: block;
+         }
+
+         .btn-grad:hover {
+             background-position: right center;
+             /* change the direction of the change here */
+             color: #fff;
+             text-decoration: none;
+         }
+
+         .footerhead {
+             margin: auto;
+             position: absolute;
+             left: 183px;
+             background-color: #eee;
+             top: -51px;
+             padding: 25px;
+             border-radius: 10px;
+             width: 75%;
+
+         }
+
+         .footer {
+             margin-top: 10rem;
+             position: relative;
+         }
+
+         .mainfooter {
+             background-color: #2a42cb;
+             height: 35rem;
+
+         }
+
+         .mainfooter>.row {
+             width: 71%;
+             margin: auto;
+             padding-top: 166px;
+             color: #eee;
+
+         }
+
+
+
+         .btn-grad1 {
+             background-image: linear-gradient(to right, #525252 0%, #3d72b4 51%, #525252 100%);
+             margin: 10px;
+             padding: 8px 10px;
+             text-align: center;
+             text-transform: uppercase;
+             transition: 0.5s;
+             background-size: 200% auto;
+             color: white;
+             box-shadow: 0 0 20px rgb(0, 0, 0);
+             border-radius: 10px;
+             display: block;
+         }
+
+         .btn-grad1:hover {
+             background-position: right center;
+             /* change the direction of the change here */
+             color: #fff;
+             text-decoration: none;
+         }
+
+         .icons {
+             margin: 4px;
+             font-size: 30px;
+         }
+
+         .phone {
+             color: #eee;
+             text-decoration: none;
+         }
+
+         .bottom-footer .row {
+             margin: auto;
+             width: 50%;
+         }
+
+
+         @media (max-width:700px) {
+             .mainfooter {
+                 width: 100% !important;
+                 height: 65rem;
+
+             }
+
+             .footerhead {
+                 left: 0;
+                 width: 100%;
+             }
+
+             .bottom-footer .row {
+                 width: 100%;
+             }
+         }
