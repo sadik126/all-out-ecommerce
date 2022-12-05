@@ -2,6 +2,7 @@ import React from 'react';
 import useCart from '../data/useCart';
 import useProducts from '../data/useProducts';
 import Header from '../Header/Header';
+import '../Cart/Cart.css';
 
 const Orders = () => {
     const [products, setProducts] = useProducts();
@@ -74,6 +75,8 @@ const Orders = () => {
                             {/* <hr />
                             <h6 class="mb-0">Header Colors</h6> */}
                             <hr />
+
+                            <a href="/cart" className='btn-grad2'>Go to cart</a>
 
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import { addToDb, getproduct } from '../../utilities/fakedb';
 import Productdata from '../data/Productdata';
 import Header from '../Header/Header';
 import './Shop.css';
+import '../Cart/Cart.css';
 
 const Shop = () => {
 
@@ -111,25 +112,27 @@ const Shop = () => {
                             <h4>Grand Total : {grandtotal}</h4>
 
                             {/* <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme" value="option1" />
-                                <label class="form-check-label" for="LightTheme">Light</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme" value="option2" />
-                                <label class="form-check-label" for="DarkTheme">Dark</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme" value="option3" />
-                                <label class="form-check-label" for="SemiDarkTheme">Semi Dark</label>
-                            </div>
-                            <hr />
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme" value="option3" checked />
-                                <label class="form-check-label" for="MinimalTheme">Minimal Theme</label>
-                            </div> */}
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme" value="option1" />
+                <label class="form-check-label" for="LightTheme">Light</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme" value="option2" />
+                <label class="form-check-label" for="DarkTheme">Dark</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme" value="option3" />
+                <label class="form-check-label" for="SemiDarkTheme">Semi Dark</label>
+            </div>
+            <hr />
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme" value="option3" checked />
+                <label class="form-check-label" for="MinimalTheme">Minimal Theme</label>
+            </div> */}
                             {/* <hr />
-                            <h6 class="mb-0">Header Colors</h6> */}
+            <h6 class="mb-0">Header Colors</h6> */}
                             <hr />
+
+                            <a href="/cart" className='btn-grad2'>Go to cart</a>
 
                         </div>
                     </div>

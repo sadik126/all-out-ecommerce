@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 import Services from '../Services/Services';
 import Trusted from '../Trusted/Trusted';
 import './Home.css';
+import '../Cart/Cart.css'
 
 const Home = () => {
     const [products, setProducts] = useProducts();
@@ -36,6 +37,7 @@ const Home = () => {
             <Banner name={data}></Banner>
             <Services></Services>
             <Trusted></Trusted>
+
 
 
 
@@ -85,6 +87,8 @@ const Home = () => {
                             {/* <hr />
                             <h6 class="mb-0">Header Colors</h6> */}
                             <hr />
+
+                            <a href="/cart" className='btn-grad2'>Go to cart</a>
 
                         </div>
                     </div>
