@@ -19,7 +19,7 @@ const Header = (props) => {
         fetch('../../fakeData/products.json')
             .then(res => res.json())
             .then(data => setProducts(data))
-    }, [])
+    }, [products])
 
 
     useEffect(() => {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { removeFromDb } from '../../utilities/fakedb';
+import React, { useState } from 'react';
+import { getproduct, removeFromDb } from '../../utilities/fakedb';
 import useCart from '../data/useCart';
 import useProducts from '../data/useProducts';
 import Header from '../Header/Header';
@@ -8,6 +8,8 @@ import Singlecart from './Singlecart';
 const Cart = () => {
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products);
+    // const [quantitys, setQuantitys] = useState(cart.quantity)
+    // console.log(quantitys)
     const data = {
         name: "ALL OUT ECOMMERCE",
     }
@@ -17,6 +19,44 @@ const Cart = () => {
         setCart(rest)
         removeFromDb(product.id)
         // console.log(product)
+    }
+
+    const Increase = (id) => {
+        let shoppingCart = {};
+        const storedCart = localStorage.getItem('shopping-cart');
+        if (storedCart) {
+            shoppingCart = JSON.parse(storedCart);
+        }
+
+        const quantity = shoppingCart[id];
+        if (quantity) {
+            const newQuantity = quantity + 1;
+            shoppingCart[id] = newQuantity;
+        }
+        else {
+            shoppingCart[id] = 1;
+        }
+        localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart));
+
+
+    }
+
+    const decrease = (id) => {
+        let shoppingCart = {};
+        const storedCart = localStorage.getItem('shopping-cart');
+        if (storedCart) {
+            shoppingCart = JSON.parse(storedCart);
+        }
+
+        const quantity = shoppingCart[id];
+        if (quantity) {
+            const newQuantity = quantity - 1;
+            shoppingCart[id] = newQuantity;
+        }
+        else {
+            shoppingCart[id] = 1;
+        }
+        localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart));
     }
 
     let total = 0;
@@ -64,7 +104,7 @@ const Cart = () => {
 
                     <div className="cart-item">
                         {
-                            cart.map(single => <Singlecart id={single.id} HandleremoveCart={HandleremoveCart} single={single}></Singlecart>)
+                            cart.map(single => <Singlecart id={single.id} decrease={decrease} Increase={Increase} HandleremoveCart={HandleremoveCart} single={single}></Singlecart>)
                         }
                     </div>
 

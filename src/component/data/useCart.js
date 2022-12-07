@@ -16,7 +16,7 @@ const useCart = (products) => {
             }
         }
         setCart(savedcart)
-    }, [products])
+    }, [cart])
     return [cart, setCart]
 };
 
