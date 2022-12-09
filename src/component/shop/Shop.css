@@ -8,6 +8,11 @@
     width: 300px;
 }
 
+.search {
+    width: 50%;
+    margin: auto;
+}
+
 
 #offcanvasScrolling {
     transition: 0.9s;
