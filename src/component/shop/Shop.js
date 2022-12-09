@@ -9,18 +9,34 @@ import useProducts from '../../hooks/useProducts';
 const Shop = () => {
 
 
-
+    // const [products, setProducts] = useState([])
     const [products] = useProducts();
     const [cart, setCart] = useState([]);
-    const [search, setSearch] = useState(products);
+    const [search, setSearch] = useState([]);
     // console.log(search)
 
 
 
     const Handlesearch = (event) => {
         const Searchtext = event.target.value;
-        const match = products.filter(product => product.name.toLowerCase().includes(Searchtext))
+        const match = products.filter(product =>
+
+        // product.name.toLowerCase().includes(Searchtext)
+
+        {
+            if (product === null) {
+                return product
+            }
+            else {
+                return product.name.toLowerCase().includes(Searchtext)
+
+            }
+        }
+
+        )
         setSearch(match)
+
+
     }
 
 
@@ -28,7 +44,14 @@ const Shop = () => {
         fetch('../../fakeData/products.json')
             .then(res => res.json())
             .then(data => setSearch(data))
-    }, [products, cart])
+    }, [])
+
+
+    // useEffect(() => {
+    //     fetch('../../fakeData/products.json')
+    //         .then(res => res.json())
+    //         .then(data => setSearch(data))
+    // }, [products, cart])
 
 
 
@@ -92,7 +115,7 @@ const Shop = () => {
             <Header cart={cart} Handlesearch={Handlesearch} quantity={quantity}></Header>
             <div class="d-flex  search">
                 <input onChange={Handlesearch} class="form-control me-2" type="search" placeholder='Search Your products' aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                {/* <button class="btn btn-outline-success" type="submit">Search</button> */}
             </div>
             <div className="products">
                 <div className='card-body'>
