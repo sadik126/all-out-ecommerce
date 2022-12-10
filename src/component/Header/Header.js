@@ -3,12 +3,35 @@ import React, { useEffect, useState } from 'react';
 import './Header.css';
 
 import image from '../../images/logo.png'
-import { Link } from 'react-router-dom';
+import { Link, useMatch, useResolvedPath, NavLink, LinkProps } from 'react-router-dom';
 import { getproduct } from '../../utilities/fakedb';
+// import type { LinkProps } from "react-router-dom";
+
 
 
 
 const Header = (props) => {
+
+    function CustomLink({ children, to, ...props }) {
+        let resolved = useResolvedPath(to);
+        let match = useMatch({ path: resolved.pathname, end: true });
+
+        return (
+            <div>
+                <Link
+                    style={{ color: match ? "red" : "black" }}
+                    to={to}
+                    {...props}
+                >
+                    {children}
+                </Link>
+                {match && " (active)"}
+            </div>
+        );
+    }
+
+
+
 
     const Handlesearch = props.Handlesearch;
     const [products, setProducts] = useState([])
@@ -58,15 +81,25 @@ const Header = (props) => {
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
                                 <ul class="navbar-nav  ms-auto mb-2 mb-lg-0">
-                                    <li class="nav-item "> <Link class="nav-link active text-dark" aria-current="page" to="/home"><i class='bi bi-house-door me-1'></i>Home</Link>
+                                    <li > <NavLink className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    }} class="nav-link active text-dark" aria-current="page" to="/home"><i class='bi bi-house-door me-1'></i>Home</NavLink>
                                     </li>
-                                    <li class="nav-item"> <Link class="nav-link text-dark" to="/orders"><i class='bi bi-people me-1'></i>Orders</Link>
+                                    <li > <NavLink className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    }} class="nav-link text-dark" to="/orders"><i class='bi bi-people me-1'></i>Orders</NavLink>
                                     </li>
-                                    <li class="nav-item"> <a class="nav-link text-dark" href="/products"><i class='bi bi-grid-1x2-fill me-1'></i>Products</a>
+                                    <li > <NavLink className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    }} class="nav-link text-dark" to="/products"><i class='bi bi-grid-1x2-fill me-1'></i>Products</NavLink>
                                     </li>
-                                    <li class="nav-item"> <a class="nav-link text-dark" href="/contact"><i class='bi bi-mic-mute-fill me-1'></i>Contact</a>
+                                    <li > <NavLink className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    }} class="nav-link text-dark" to="/contact"><i class='bi bi-mic-mute-fill me-1'></i>Contact</NavLink>
                                     </li>
-                                    <li class="nav-item"> <a class="nav-link text-dark" href="/about"><i class='bi bi-question-square-fill me-1'></i>About</a>
+                                    <li > <NavLink className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    }} class="nav-link text-dark" to="/about"><i class='bi bi-question-square-fill me-1'></i>About</NavLink>
                                     </li>
 
                                     {/* <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
