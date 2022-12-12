@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import app from './firebase.init';
+import { getAuth } from 'firebase/auth';
 // import Header from './component/Header/Header.js';
 import Shop from './component/shop/Shop';
 import { Route, Routes } from 'react-router-dom';
@@ -12,7 +14,7 @@ import Error from './component/Error/Error';
 import Cart from './component/Cart/Cart';
 
 
-
+const auth = getAuth(app);
 function App() {
   return (
     <div >
