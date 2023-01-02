@@ -102,6 +102,11 @@ const Header = (props) => {
                                     }} class="nav-link text-dark" to="/about"><i class='bi bi-question-square-fill me-1'></i>About</NavLink>
                                     </li>
 
+                                    <li > <NavLink className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    }} class="nav-link text-dark" to="/login"><i class="bi bi-door-open"></i>Login</NavLink>
+                                    </li>
+
                                     {/* <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Dropdown
                                     </a>

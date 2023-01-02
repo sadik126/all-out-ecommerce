@@ -12,6 +12,8 @@ import Contact from './component/Contact/Contact';
 import Footer from './component/Footer/Footer';
 import Error from './component/Error/Error';
 import Cart from './component/Cart/Cart';
+import Login from './component/Login/Login';
+import Signup from './component/Signup/Signup';
 
 
 const auth = getAuth(app);
@@ -27,6 +29,9 @@ function App() {
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<Contact></Contact>}></Route>
         <Route path='/cart' element={<Cart></Cart>}></Route>
+        <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/signup' element={<Signup></Signup>}></Route>
+
         <Route path='*' element={<Error></Error>}></Route>
 
       </Routes>
