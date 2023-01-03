@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
-// import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import app from '../../firebase.init';
@@ -16,8 +16,11 @@ const Signup = () => {
 
     const auth = getAuth(app);
 
-    // const [
-    //     createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+    const [
+        createUserWithEmailAndPassword,
+        user,
+
+    ] = useCreateUserWithEmailAndPassword(auth);
 
 
     const handleemailBlur = event => {
@@ -49,18 +52,19 @@ const Signup = () => {
             return
         }
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                setEmail('')
-                setPassword('')
-                setConfirmpassword('')
-                setName('')
-            })
-            .catch(error => {
-                console.error(error)
-            })
+        createUserWithEmailAndPassword(email, password)
+        // .then(result => {
+        //     const user = result.user;
+        //     console.log(user);
+
+        // })
+        // .catch(error => {
+        //     console.error(error)
+        // })
+
+        if (user) {
+            Navigate('/');
+        }
     }
 
 
@@ -95,7 +99,7 @@ const Signup = () => {
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                         <label class="form-check-label" for="exampleCheck1">Check me out</label>
                     </div>
-                    <button type="submit" class="btn btn-primary d-block w-100 mb-3">Submit</button>
+                    <button type="submit" class="btn btn-primary d-block w-100 mb-3">Sign Up</button>
                     <p>Already Have an account?</p> <Link to="/login" className='text-primary pe-auto  text-decoration-none'>Please login</Link>
                 </form>
 
