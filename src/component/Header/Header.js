@@ -122,13 +122,20 @@ const Header = (props) => {
                                             </li>
                                         </ul>
                                     </li> */}
+                                    <form class="d-flex">
+                                        {/* <button class="btn btn-light px-4" type='button' data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" ><i class="bi bi-cart-fill"></i> Buy Now {cart.length}</button> */}
+                                        <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" type="button" class="btn btn-outline-primary position-relative"> <i class="bi bi-cart-fill"></i> Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cart.length} <span class="visually-hidden">unread messages</span></span>
+                                        </button>
+                                    </form>
+                                    <li > <NavLink className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    }} class="nav-link text-dark" to="/signup"><i class="bi bi-key-fill"></i>Signup</NavLink>
+                                    </li>
                                 </ul>
 
-                                <form class="d-flex">
-                                    {/* <button class="btn btn-light px-4" type='button' data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" ><i class="bi bi-cart-fill"></i> Buy Now {cart.length}</button> */}
-                                    <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" type="button" class="btn btn-outline-primary position-relative me-lg-5"> <i class="bi bi-cart-fill"></i> Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cart.length} <span class="visually-hidden">unread messages</span></span>
-                                    </button>
-                                </form>
+
+
+
                             </div>
                         </div>
                     </nav>
