@@ -14,6 +14,7 @@ import Error from './component/Error/Error';
 import Cart from './component/Cart/Cart';
 import Login from './component/Login/Login';
 import Signup from './component/Signup/Signup';
+import Requireauth from './component/RequireAuth/Requireauth';
 
 
 const auth = getAuth(app);
@@ -22,7 +23,14 @@ function App() {
     <div >
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
-        <Route path='/orders' element={<Orders></Orders>}></Route>
+        <Route path='/orders' element={
+          <Requireauth>
+
+            <Orders></Orders>
+
+          </Requireauth>
+
+        }></Route>
 
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/products' element={<Shop></Shop>}></Route>

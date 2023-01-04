@@ -5,12 +5,22 @@ import './Header.css';
 import image from '../../images/logo.png'
 import { Link, useMatch, useResolvedPath, NavLink, LinkProps } from 'react-router-dom';
 import { getproduct } from '../../utilities/fakedb';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth, signOut } from 'firebase/auth';
+import app from '../../firebase.init';
 // import type { LinkProps } from "react-router-dom";
 
 
 
 
 const Header = (props) => {
+    const auth = getAuth(app);
+    const [user] = useAuthState(auth)
+
+
+    const handlesignOUT = () => {
+        signOut(auth);
+    }
 
     function CustomLink({ children, to, ...props }) {
         let resolved = useResolvedPath(to);
@@ -102,10 +112,20 @@ const Header = (props) => {
                                     }} class="nav-link text-dark" to="/about"><i class='bi bi-question-square-fill me-1'></i>About</NavLink>
                                     </li>
 
-                                    <li > <NavLink className={({ isActive, isPending }) => {
-                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
-                                    }} class="nav-link text-dark" to="/login"><i class="bi bi-door-open"></i>Login</NavLink>
-                                    </li>
+
+                                    {
+                                        user ? <li > <NavLink onClick={handlesignOUT} className={({ isActive, isPending }) => {
+                                            return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                        }} class="nav-link text-dark" to="/"><i class="bi bi-door-closed-fill"></i>Logout</NavLink>
+                                        </li> :
+                                            <li > <NavLink className={({ isActive, isPending }) => {
+                                                return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                            }} class="nav-link text-dark" to="/login"><i class="bi bi-door-open"></i>Login</NavLink>
+                                            </li>
+
+                                    }
+
+
 
                                     {/* <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Dropdown
