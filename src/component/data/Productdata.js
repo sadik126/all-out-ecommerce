@@ -2,12 +2,21 @@ import React from 'react';
 import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import { AiOutlineStar } from 'react-icons/ai';
 import './Productdata.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Productdata = (props) => {
 
     const { name, ratings, id, price, img } = props.product
+
+    const nevigate = useNavigate();
+
+
+
+    const nevigateDetail = id => {
+        nevigate(`/service/${id}`)
+    }
 
     const star = Array.from({ length: 5 }, (elem, index) => {
 
@@ -54,7 +63,7 @@ const Productdata = (props) => {
                     </div>
                     <small>74 Reviews</small>
                     <div class="actions d-flex align-items-center justify-content-center gap-2 mt-3">
-                        <a href="javascript:;" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-fill"></i> Details</a>
+                        <a onClick={() => nevigateDetail(id)} href="javascript:;" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-fill"></i> Details</a>
                         <button onClick={() => props.addtocart(props.product)} class="btn btn-sm btn-outline-success"><i class="bi bi-cart-fill"></i> Add to cart</button>
                     </div>
                 </div>

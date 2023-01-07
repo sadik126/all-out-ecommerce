@@ -15,35 +15,84 @@ import Cart from './component/Cart/Cart';
 import Login from './component/Login/Login';
 import Signup from './component/Signup/Signup';
 import Requireauth from './component/RequireAuth/Requireauth';
+import { useState, CSSProperties } from 'react';
+import { useEffect } from 'react';
+import { ClipLoader, BarLoader } from 'react-spinners';
+import Details from './component/Details/Details';
+import Themeprovider from './component/Themetoggle/Themeprovider';
 
 
 const auth = getAuth(app);
 function App() {
+
+  const override = {
+    display: "flex",
+
+    margin: "150px auto",
+    borderColor: "red",
+  };
+
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  }, [])
   return (
     <div >
-      <Routes>
-        <Route path='/' element={<Home></Home>}></Route>
-        <Route path='/orders' element={
-          <Requireauth>
 
-            <Orders></Orders>
+      {
+        loading ?
+          <div className='loading'>
 
-          </Requireauth>
+            <BarLoader
+              color={'#367bd6'}
+              loading={loading}
+              cssOverride={override}
 
-        }></Route>
+              height={6}
 
-        <Route path='/home' element={<Home></Home>}></Route>
-        <Route path='/products' element={<Shop></Shop>}></Route>
-        <Route path='/about' element={<About></About>}></Route>
-        <Route path='/contact' element={<Contact></Contact>}></Route>
-        <Route path='/cart' element={<Cart></Cart>}></Route>
-        <Route path='/login' element={<Login></Login>}></Route>
-        <Route path='/signup' element={<Signup></Signup>}></Route>
+              width={220}
 
-        <Route path='*' element={<Error></Error>}></Route>
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
 
-      </Routes>
-      <Footer></Footer>
+          </div>
+          :
+          <div>
+            <Themeprovider>
+              <Routes>
+                <Route path='/' element={<Home></Home>}></Route>
+                <Route path='/orders' element={
+                  <Requireauth>
+
+                    <Orders></Orders>
+
+                  </Requireauth>
+
+                }></Route>
+
+                <Route path='/home' element={<Home></Home>}></Route>
+                <Route path='/products' element={<Shop></Shop>}></Route>
+                <Route path='/about' element={<About></About>}></Route>
+                <Route path='/contact' element={<Contact></Contact>}></Route>
+                <Route path='/cart' element={<Cart></Cart>}></Route>
+                <Route path='/login' element={<Login></Login>}></Route>
+                <Route path='/service/:serviceId' element={<Details></Details>}></Route>
+                <Route path='/signup' element={<Signup></Signup>}></Route>
+
+                <Route path='*' element={<Error></Error>}></Route>
+
+              </Routes>
+            </Themeprovider>
+            <Footer></Footer>
+
+          </div>
+      }
+
 
 
 

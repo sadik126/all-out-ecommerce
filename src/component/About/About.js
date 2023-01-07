@@ -4,8 +4,26 @@ import useCart from '../data/useCart';
 import useProducts from '../data/useProducts';
 import Header from '../Header/Header';
 import '../Cart/Cart.css';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { ClipLoader, BarLoader } from 'react-spinners';
 
 const About = () => {
+
+    const override = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "red",
+    };
+
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
+    }, [])
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products);
     const data = {
@@ -31,7 +49,24 @@ const About = () => {
     return (
         <div>
             <Header></Header>
-            <Banner name={data}></Banner>
+            {
+                loading ? <BarLoader
+                    color={'#367bd6'}
+                    loading={loading}
+                    cssOverride={override}
+                    size={150}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+                    :
+
+                    <div>
+
+                        <Banner name={data}></Banner>
+
+                    </div>
+            }
+
 
 
             <div className="cart">

@@ -5,8 +5,25 @@ import Header from '../Header/Header';
 import './Shop.css';
 import '../Cart/Cart.css';
 import useProducts from '../../hooks/useProducts';
+import { ClipLoader, BarLoader } from 'react-spinners';
 
 const Shop = () => {
+
+
+    const override = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "red",
+    };
+
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }, [])
 
 
     // const [products, setProducts] = useState([])
@@ -113,30 +130,46 @@ const Shop = () => {
     return (
         <div>
             <Header cart={cart} Handlesearch={Handlesearch} quantity={quantity}></Header>
-            <div class="d-flex  search">
-                <input onChange={Handlesearch} class="form-control me-2" type="search" placeholder='Search Your products' aria-label="Search" />
-                {/* <button class="btn btn-outline-success" type="submit">Search</button> */}
-            </div>
-            <div className="products">
-                <div className='card-body'>
-                    <h1 className='text-center'>All products</h1>
-                    <div className='product-grid'>
-                        <div className='row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3'>
 
-                            {
-
-
-                                // search ? search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>) : products.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
-
-                                search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
-
-
-
-                            }
+            {
+                loading ? <BarLoader
+                    color={'#367bd6'}
+                    loading={loading}
+                    cssOverride={override}
+                    size={150}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+                    :
+                    <div>
+                        <div class="d-flex  search">
+                            <input onChange={Handlesearch} class="form-control me-2" type="search" placeholder='Search Your products' aria-label="Search" />
+                            {/* <button class="btn btn-outline-success" type="submit">Search</button> */}
                         </div>
+                        <div className="products">
+                            <div className='card-body'>
+                                <h1 className='text-center'>All products</h1>
+                                <div className='product-grid'>
+                                    <div className='row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3'>
+
+                                        {
+
+
+                                            // search ? search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>) : products.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
+
+                                            search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
+
+
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-            </div>
+            }
+
 
             <div className="cart">
 

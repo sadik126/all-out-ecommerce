@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import Banner from '../banner/Banner';
 import useCart from '../data/useCart';
@@ -8,8 +8,27 @@ import Services from '../Services/Services';
 import Trusted from '../Trusted/Trusted';
 import './Home.css';
 import '../Cart/Cart.css'
+import { useState } from 'react';
+import { ClipLoader, BarLoader } from 'react-spinners';
+
+
 
 const Home = () => {
+
+    const override = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "red",
+    };
+
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
+    }, [])
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products);
     const data = {
@@ -32,11 +51,30 @@ const Home = () => {
 
     let grandtotal = total + shipping + tax;
     return (
+
+
         <div className='conatiner'>
             <Header className="mb-5"></Header>
-            <Banner name={data}></Banner>
-            <Services></Services>
-            <Trusted></Trusted>
+
+            {
+                loading ? <BarLoader
+                    color={'#367bd6'}
+                    loading={loading}
+                    cssOverride={override}
+                    size={150}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+                    :
+                    <div>
+
+                        <Banner name={data}></Banner>
+                        <Services></Services>
+                        <Trusted></Trusted>
+
+                    </div>
+            }
+
 
 
 
