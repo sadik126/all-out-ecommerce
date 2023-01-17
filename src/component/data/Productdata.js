@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import { AiOutlineStar } from 'react-icons/ai';
 import './Productdata.css';
 import { useNavigate } from 'react-router-dom';
+import { themeContext } from '../../Context';
 
 
 
 const Productdata = (props) => {
+
+    const theme = useContext(themeContext);
+    const darkMode = theme.state.darkMode;
 
     const { name, ratings, id, price, img } = props.product
 
@@ -40,10 +44,10 @@ const Productdata = (props) => {
         // <div className='card-body'>
         //     <div className='product-grid'>
         //         <div className='row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3'>
-        <div class="col  d-flex align-items-stretch">
-            <div class="card border shadow-none mb-0">
+        <div class="col  d-flex align-items-stretch" >
+            <div class="card  shadow-none mb-0" style={{ background: darkMode ? "#1B2430" : "" }}>
                 <div class="card-body text-center">
-                    <img src={img} class="img-fluid mb-3" alt="" />
+                    <img src={img} style={{ borderRadius: '50px' }} class="img-fluid mb-3" alt="" />
                     <h6 class="product-title">{name}</h6>
                     <p class="product-price fs-5 mb-1"><span>${price}</span></p>
                     <div class="rating mb-0">

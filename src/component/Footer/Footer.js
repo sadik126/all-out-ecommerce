@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Footer.css';
 import { FaDiscord, FaInstagram, FaYoutube } from "react-icons/fa";
+import { themeContext } from '../../Context';
 
 const Footer = () => {
+
+    const theme = useContext(themeContext);
+    const darkMode = theme.state.darkMode;
     return (
         <div className='footer'>
-            <div className='d-flex align-items-center justify-content-between  footerhead'>
+            <div className='d-flex align-items-center justify-content-between  footerhead' style={{ background: darkMode ? "#2a2b36" : "" }}>
                 <p>Ready to get started</p>
                 <button className='btn-grad'>Get started</button>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
@@ -13,8 +13,10 @@ const Signup = () => {
     const [name, setName] = useState('');
     const [confirmpassword, setConfirmpassword] = useState('');
     const [error, setError] = useState('');
+    const [agree, setAgree] = useState(false);
 
     const auth = getAuth(app);
+    const nevigate = useNavigate();
 
     const [
         createUserWithEmailAndPassword,
@@ -52,7 +54,12 @@ const Signup = () => {
             return
         }
 
-        createUserWithEmailAndPassword(email, password)
+        if (agree) {
+            createUserWithEmailAndPassword(email, password)
+
+        }
+
+
         // .then(result => {
         //     const user = result.user;
         //     console.log(user);
@@ -62,9 +69,11 @@ const Signup = () => {
         //     console.error(error)
         // })
 
-        if (user) {
-            Navigate('/');
-        }
+
+    }
+
+    if (user) {
+        nevigate('/');
     }
 
 
@@ -96,10 +105,10 @@ const Signup = () => {
                         <input onBlur={handlecpasswordBlur} type="password" class="form-control" id="confirmpassword" />
                     </div>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        <input onClick={() => setAgree(!agree)} type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Accept Terms and Conditions</label>
                     </div>
-                    <button type="submit" class="btn btn-primary d-block w-100 mb-3">Sign Up</button>
+                    <button type="submit" className={agree ? 'btn btn-primary d-block w-100 mb-3' : 'btn btn-primary d-block w-100 mb-3 disabled'} class="btn btn-primary d-block w-100 mb-3">Sign Up</button>
                     <p>Already Have an account?</p> <Link to="/login" className='text-primary pe-auto  text-decoration-none'>Please login</Link>
                 </form>
 

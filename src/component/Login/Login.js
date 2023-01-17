@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import app from '../../firebase.init';
 import Header from '../Header/Header';
 import Loading from '../Loading/Loading';
+import Social from '../Social/Social';
 import './Login.css';
 
 const Login = () => {
@@ -72,9 +73,11 @@ const Login = () => {
                     {/* {
                         loading && <p>Loading....</p>
                     } */}
-                    <button type="submit" class="btn btn-primary d-block w-100 mb-3">Submit</button>
+                    <button type="submit" class="btn btn-primary d-block w-100 mb-3">Login</button>
                     <p>New to all out shopping?</p> <Link to="/signup" className='text-primary pe-auto  text-decoration-none'>Please register</Link>
                 </form>
+
+                <Social></Social>
 
 
             </div>

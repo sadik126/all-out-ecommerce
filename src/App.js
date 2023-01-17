@@ -20,10 +20,19 @@ import { useEffect } from 'react';
 import { ClipLoader, BarLoader } from 'react-spinners';
 import Details from './component/Details/Details';
 import Themeprovider from './component/Themetoggle/Themeprovider';
+import { useContext } from 'react';
+import { themeContext } from './Context';
 
 
 const auth = getAuth(app);
+
 function App() {
+
+  const theme = useContext(themeContext);
+  const darkMode = theme.state.darkMode;
+
+
+
 
   const override = {
     display: "flex",
@@ -62,32 +71,38 @@ function App() {
 
           </div>
           :
-          <div>
-            <Themeprovider>
-              <Routes>
-                <Route path='/' element={<Home></Home>}></Route>
-                <Route path='/orders' element={
-                  <Requireauth>
+          <div
 
-                    <Orders></Orders>
+            style={{
+              background: darkMode ? "#1B2430" : "",
+              color: darkMode ? "white" : "",
+            }}
+          >
 
-                  </Requireauth>
+            <Routes>
+              <Route path='/' element={<Home></Home>}></Route>
+              <Route path='/orders' element={
+                <Requireauth>
 
-                }></Route>
+                  <Orders></Orders>
 
-                <Route path='/home' element={<Home></Home>}></Route>
-                <Route path='/products' element={<Shop></Shop>}></Route>
-                <Route path='/about' element={<About></About>}></Route>
-                <Route path='/contact' element={<Contact></Contact>}></Route>
-                <Route path='/cart' element={<Cart></Cart>}></Route>
-                <Route path='/login' element={<Login></Login>}></Route>
-                <Route path='/service/:serviceId' element={<Details></Details>}></Route>
-                <Route path='/signup' element={<Signup></Signup>}></Route>
+                </Requireauth>
 
-                <Route path='*' element={<Error></Error>}></Route>
+              }></Route>
 
-              </Routes>
-            </Themeprovider>
+              <Route path='/home' element={<Home></Home>}></Route>
+              <Route path='/products' element={<Shop></Shop>}></Route>
+              <Route path='/about' element={<About></About>}></Route>
+              <Route path='/contact' element={<Contact></Contact>}></Route>
+              <Route path='/cart' element={<Cart></Cart>}></Route>
+              <Route path='/login' element={<Login></Login>}></Route>
+              <Route path='/service/:serviceId' element={<Details></Details>}></Route>
+              <Route path='/signup' element={<Signup></Signup>}></Route>
+
+              <Route path='*' element={<Error></Error>}></Route>
+
+            </Routes>
+
             <Footer></Footer>
 
           </div>

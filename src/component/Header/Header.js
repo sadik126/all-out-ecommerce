@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import './Header.css';
 
@@ -8,6 +8,8 @@ import { getproduct } from '../../utilities/fakedb';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth, signOut } from 'firebase/auth';
 import app from '../../firebase.init';
+import { themeContext } from '../../Context';
+import Themetoggle from '../Themetoggle/Themetoggle';
 // import type { LinkProps } from "react-router-dom";
 
 
@@ -15,24 +17,29 @@ import app from '../../firebase.init';
 
 const Header = (props) => {
 
-    const [theme, setTheme] = useState('lighttheme')
+    const theme = useContext(themeContext);
+    const darkMode = theme.state.darkMode;
+
+    // const [theme, setTheme] = useState('lighttheme')
 
 
 
-    const setDarkmode = () => {
-        if (theme === 'darktheme') {
-            setTheme('lighttheme')
-        }
-        else {
-            setTheme('darktheme')
-        }
-    }
+    // const setDarkmode = () => {
+    //     if (theme === 'darktheme') {
+    //         setTheme('lighttheme')
+    //     }
+    //     else {
+    //         setTheme('darktheme')
+    //     }
+    // }
 
 
-    useEffect(() => {
-        document.body.className = theme;
-        // document.getElementById('li').className = theme;
-    }, [theme])
+    // useEffect(() => {
+    //     document.body.className = theme;
+    //     document.querySelectorAll('a').className = theme;
+    //     // document.querySelectorAll('a').className = theme;
+    //     // document.getElementById('li').className = theme;
+    // }, [theme])
     const auth = getAuth(app);
     const [user] = useAuthState(auth)
 
@@ -113,41 +120,42 @@ const Header = (props) => {
                             <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
                             </button>
 
-                            <button onClick={() => setDarkmode()}>
+                            {/* <button onClick={() => setDarkmode()}>
                                 Toggle Dark Mode
-                            </button>
+                            </button> */}
+                            <Themetoggle></Themetoggle>
 
                             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
                                 <ul class="navbar-nav  ms-auto mb-2 mb-lg-0">
-                                    <li > <NavLink className={({ isActive, isPending }) => {
-                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
-                                    }} class="nav-link lighttheme" aria-current="page" to="/home"><i class='bi bi-house-door me-1'></i>Home</NavLink>
+                                    <li > <NavLink style={{ color: darkMode ? "white" : "" }} className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-danger" : "nav-link active";
+                                    }} class="nav-link" aria-current="page" to="/home"><i class='bi bi-house-door me-1'></i>Home</NavLink>
                                     </li>
-                                    <li > <NavLink className={({ isActive, isPending }) => {
-                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    <li > <NavLink style={{ color: darkMode ? "white" : "" }} className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-danger" : "nav-link active";
                                     }} class="nav-link" to="/orders"><i class='bi bi-people me-1'></i>Orders</NavLink>
                                     </li>
-                                    <li > <NavLink className={({ isActive, isPending }) => {
-                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    <li > <NavLink style={{ color: darkMode ? "white" : "" }} className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-danger" : "nav-link active";
                                     }} class="nav-link " to="/products"><i class='bi bi-grid-1x2-fill me-1'></i>Products</NavLink>
                                     </li>
-                                    <li > <NavLink className={({ isActive, isPending }) => {
-                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    <li > <NavLink style={{ color: darkMode ? "white" : "" }} className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-danger" : "nav-link active";
                                     }} class="nav-link " to="/contact"><i class='bi bi-mic-mute-fill me-1'></i>Contact</NavLink>
                                     </li>
-                                    <li > <NavLink className={({ isActive, isPending }) => {
-                                        return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                    <li > <NavLink style={{ color: darkMode ? "white" : "" }} className={({ isActive, isPending }) => {
+                                        return isActive ? "nav-link active text-danger" : "nav-link active";
                                     }} class="nav-link" to="/about"><i class='bi bi-question-square-fill me-1'></i>About</NavLink>
                                     </li>
 
 
                                     {
-                                        user ? <li > <NavLink onClick={handlesignOUT} className={({ isActive, isPending }) => {
-                                            return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                        user ? <li > <NavLink style={{ color: darkMode ? "white" : "" }} onClick={handlesignOUT} className={({ isActive, isPending }) => {
+                                            return isActive ? "nav-link active text-danger" : "nav-link active";
                                         }} class="nav-link" to="/"><i class="bi bi-door-closed-fill"></i>Logout</NavLink>
                                         </li> :
-                                            <li > <NavLink className={({ isActive, isPending }) => {
-                                                return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                            <li > <NavLink style={{ color: darkMode ? "white" : "" }} className={({ isActive, isPending }) => {
+                                                return isActive ? "nav-link active text-danger" : "nav-link active";
                                             }} class="nav-link" to="/login"><i class="bi bi-door-open"></i>Login</NavLink>
                                             </li>
 
@@ -156,11 +164,11 @@ const Header = (props) => {
                                     }
 
                                     {
-                                        user ? <li > <NavLink className={({ isActive, isPending }) => {
-                                            return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                        user ? <li > <NavLink style={{ color: darkMode ? "white" : "" }} className={({ isActive, isPending }) => {
+                                            return isActive ? "nav-link active text-danger" : "nav-link active";
                                         }} class="nav-link" to="/">{user.displayName}</NavLink>
-                                        </li> : <li > <NavLink className={({ isActive, isPending }) => {
-                                            return isActive ? "nav-link active text-primary" : "nav-link active text-dark";
+                                        </li> : <li > <NavLink style={{ color: darkMode ? "white" : "" }} className={({ isActive, isPending }) => {
+                                            return isActive ? "nav-link active text-danger" : "nav-link active";
                                         }} class="nav-link" to="/signup"><i class="bi bi-key-fill"></i>Signup</NavLink>
                                         </li>
                                     }
