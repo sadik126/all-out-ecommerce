@@ -1,3 +1,13 @@
 .star {
     color: brown;
 }
+
+.service:hover {
+    transition: 1.3s;
+    transform: scale(1.02);
+
+}
+
+/* .service:hover .card {
+    background-color: brown;
+} */

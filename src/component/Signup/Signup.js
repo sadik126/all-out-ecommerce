@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import app from '../../firebase.init';
@@ -24,6 +24,8 @@ const Signup = () => {
 
     ] = useCreateUserWithEmailAndPassword(auth);
 
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
 
     const handleemailBlur = event => {
         setEmail(event.target.value)
@@ -41,7 +43,7 @@ const Signup = () => {
         setConfirmpassword(event.target.value)
     }
 
-    const createUser = event => {
+    const createUser = async (event) => {
         event.preventDefault();
         console.log(email, password)
         if (password !== confirmpassword) {
@@ -54,10 +56,13 @@ const Signup = () => {
             return
         }
 
-        if (agree) {
-            createUserWithEmailAndPassword(email, password)
 
-        }
+
+
+        await createUserWithEmailAndPassword(email, password, { sendEmailVerification: true });
+        await updateProfile({ displayName: name });
+
+
 
 
         // .then(result => {
@@ -105,10 +110,10 @@ const Signup = () => {
                         <input onBlur={handlecpasswordBlur} type="password" class="form-control" id="confirmpassword" />
                     </div>
                     <div class="mb-3 form-check">
-                        <input onClick={() => setAgree(!agree)} type="checkbox" class="form-check-input" id="exampleCheck1" />
-                        <label class="form-check-label" for="exampleCheck1">Accept Terms and Conditions</label>
+                        <input onClick={() => setAgree(!agree)} type="checkbox" name='terms' class="form-check-input" />
+                        <label htmlFor="terms" class="form-check-label" >Accept Terms and Conditions</label>
                     </div>
-                    <button type="submit" className={agree ? 'btn btn-primary d-block w-100 mb-3' : 'btn btn-primary d-block w-100 mb-3 disabled'} class="btn btn-primary d-block w-100 mb-3">Sign Up</button>
+                    <button type="submit" className={agree ? 'btn btn-primary d-block w-100 mb-3' : 'btn btn-light d-block w-100 mb-3 disabled'} class="btn btn-primary d-block w-100 mb-3">Sign Up</button>
                     <p>Already Have an account?</p> <Link to="/login" className='text-primary pe-auto  text-decoration-none'>Please login</Link>
                 </form>
 

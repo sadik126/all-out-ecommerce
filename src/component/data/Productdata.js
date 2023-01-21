@@ -44,8 +44,8 @@ const Productdata = (props) => {
         // <div className='card-body'>
         //     <div className='product-grid'>
         //         <div className='row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3'>
-        <div class="col  d-flex align-items-stretch" >
-            <div class="card  shadow-none mb-0" style={{ background: darkMode ? "#1B2430" : "" }}>
+        <div class="col service  d-flex align-items-stretch" >
+            <div class="card   shadow-none mb-0" style={{ background: darkMode ? "#1B2430" : "" }}>
                 <div class="card-body text-center">
                     <img src={img} style={{ borderRadius: '50px' }} class="img-fluid mb-3" alt="" />
                     <h6 class="product-title">{name}</h6>

@@ -22,11 +22,15 @@ import Details from './component/Details/Details';
 import Themeprovider from './component/Themetoggle/Themeprovider';
 import { useContext } from 'react';
 import { themeContext } from './Context';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 const auth = getAuth(app);
 
+
 function App() {
+
+  const [user] = useAuthState(auth);
 
   const theme = useContext(themeContext);
   const darkMode = theme.state.darkMode;
@@ -95,9 +99,9 @@ function App() {
               <Route path='/about' element={<About></About>}></Route>
               <Route path='/contact' element={<Contact></Contact>}></Route>
               <Route path='/cart' element={<Cart></Cart>}></Route>
-              <Route path='/login' element={<Login></Login>}></Route>
+              <Route path='/login' element={user ? <Home></Home> : <Login></Login>}></Route>
               <Route path='/service/:serviceId' element={<Details></Details>}></Route>
-              <Route path='/signup' element={<Signup></Signup>}></Route>
+              <Route path='/signup' element={user ? <Home></Home> : <Signup></Signup>}></Route>
 
               <Route path='*' element={<Error></Error>}></Route>
 
