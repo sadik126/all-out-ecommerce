@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { addToDb, getproduct } from '../../utilities/fakedb';
 import Productdata from '../data/Productdata';
 import Header from '../Header/Header';
@@ -6,8 +6,12 @@ import './Shop.css';
 import '../Cart/Cart.css';
 import useProducts from '../../hooks/useProducts';
 import { ClipLoader, BarLoader } from 'react-spinners';
+import { themeContext } from '../../Context';
 
 const Shop = () => {
+
+    const theme = useContext(themeContext);
+    const darkMode = theme.state.darkMode;
 
 
     const override = {
@@ -18,12 +22,12 @@ const Shop = () => {
 
     const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
-    }, [])
+    // useEffect(() => {
+    //     setLoading(true)
+    //     setTimeout(() => {
+    //         setLoading(false)
+    //     }, 1000)
+    // }, [])
 
 
     // const [products, setProducts] = useState([])
@@ -60,7 +64,12 @@ const Shop = () => {
     useEffect(() => {
         fetch('../../fakeData/products.json')
             .then(res => res.json())
-            .then(data => setSearch(data))
+            .then(data => {
+                setSearch(data)
+
+
+            })
+        setLoading(true)
     }, [])
 
 
@@ -132,7 +141,33 @@ const Shop = () => {
             <Header cart={cart} Handlesearch={Handlesearch} quantity={quantity}></Header>
 
             {
-                loading ? <BarLoader
+                loading ? <div>
+                    <div class="d-flex  search">
+                        <input onChange={Handlesearch} class="form-control me-2" type="search" placeholder='Search Your products' aria-label="Search" />
+                        {/* <button class="btn btn-outline-success" type="submit">Search</button> */}
+                    </div>
+                    <div className="products">
+                        <div className='card-body'>
+                            <h1 className='text-center'>All products</h1>
+                            <div className='product-grid'>
+                                <div className='row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3'>
+
+                                    {
+
+
+                                        // search ? search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>) : products.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
+
+                                        search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
+
+
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> : <BarLoader
                     color={'#367bd6'}
                     loading={loading}
                     cssOverride={override}
@@ -140,34 +175,8 @@ const Shop = () => {
                     aria-label="Loading Spinner"
                     data-testid="loader"
                 />
-                    :
-                    <div>
-                        <div class="d-flex  search">
-                            <input onChange={Handlesearch} class="form-control me-2" type="search" placeholder='Search Your products' aria-label="Search" />
-                            {/* <button class="btn btn-outline-success" type="submit">Search</button> */}
-                        </div>
-                        <div className="products">
-                            <div className='card-body'>
-                                <h1 className='text-center'>All products</h1>
-                                <div className='product-grid'>
-                                    <div className='row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3'>
-
-                                        {
 
 
-                                            // search ? search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>) : products.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
-
-                                            search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
-
-
-
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
             }
 
 
@@ -176,7 +185,7 @@ const Shop = () => {
 
                 <div class="switcher-body">
                     {/* <button class="btn btn-primary btn-switcher shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-paint-bucket me-0"></i></button> */}
-                    <div class="offcanvas offcanvas-end shadow border-start-0 p-1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
+                    <div style={{ background: darkMode ? "#2a2b36" : "" }} class="offcanvas offcanvas-end shadow border-start-0 p-1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
                         <div class="offcanvas-header border-bottom">
                             <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Order summary</h5>
                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
