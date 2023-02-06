@@ -6,8 +6,15 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import app from '../../firebase.init';
+import useProducts from '../data/useProducts';
+import useCart from '../data/useCart';
+import { useContext } from 'react';
+import { themeContext } from '../../Context';
 
 const Signup = () => {
+
+    const theme = useContext(themeContext);
+    const darkMode = theme.state.darkMode;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -77,6 +84,26 @@ const Signup = () => {
 
     }
 
+    const [products, setProducts] = useProducts();
+    const [cart, setCart] = useCart(products);
+
+    let total = 0;
+    let shipping = 0;
+    let quantity = 0;
+    for (const product of cart) {
+
+
+        quantity = quantity + product.quantity;
+        total = total + product.price * product.quantity;
+
+        shipping = shipping + product.shipping
+
+    }
+
+    let tax = parseFloat((total * 10 / 100).toFixed(2));
+
+    let grandtotal = total + shipping + tax;
+
     if (user) {
         nevigate('/');
     }
@@ -116,6 +143,58 @@ const Signup = () => {
                     <button type="submit" className={agree ? 'btn btn-primary d-block w-100 mb-3' : 'btn btn-light d-block w-100 mb-3 disabled'} class="btn btn-primary d-block w-100 mb-3">Sign Up</button>
                     <p>Already Have an account?</p> <Link to="/login" className='text-primary pe-auto  text-decoration-none'>Please login</Link>
                 </form>
+
+
+            </div>
+            <div className="cart">
+
+
+                <div class="switcher-body">
+                    {/* <button class="btn btn-primary btn-switcher shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-paint-bucket me-0"></i></button> */}
+                    <div style={{ background: darkMode ? "#2a2b36" : "" }} class="offcanvas offcanvas-end shadow border-start-0 p-1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
+                        <div class="offcanvas-header border-bottom">
+                            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Order summary</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+
+                        </div>
+                        <div class="offcanvas-body">
+                            <h6 class="mb-0 text-center">Cart details</h6>
+                            <hr />
+                            <h6>Total Product : {cart.length} items</h6>
+                            <small>Total price: {total} BDT</small>
+                            <br />
+                            <small>Shipping: {shipping} BDT</small>
+                            <br />
+                            <small>Tax: {tax} BDT</small>
+                            <hr />
+                            <h4>Grand Total : {grandtotal}</h4>
+
+                            {/* <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme" value="option1" />
+                                <label class="form-check-label" for="LightTheme">Light</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme" value="option2" />
+                                <label class="form-check-label" for="DarkTheme">Dark</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme" value="option3" />
+                                <label class="form-check-label" for="SemiDarkTheme">Semi Dark</label>
+                            </div>
+                            <hr />
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme" value="option3" checked />
+                                <label class="form-check-label" for="MinimalTheme">Minimal Theme</label>
+                            </div> */}
+                            {/* <hr />
+                            <h6 class="mb-0">Header Colors</h6> */}
+                            <hr />
+
+                            <a href="/cart" className='btn-grad2'>Go to cart</a>
+
+                        </div>
+                    </div>
+                </div>
 
 
             </div>

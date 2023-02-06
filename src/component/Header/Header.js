@@ -101,7 +101,7 @@ const Header = (props) => {
         setCart(savedcart);
 
 
-    }, [products, cart])
+    }, [products])
 
     // const cart = props.cart;
 
