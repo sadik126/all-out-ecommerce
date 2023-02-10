@@ -8,7 +8,7 @@ const useCart = (products) => {
         const storedCart = getproduct();
         const savedcart = [];
         for (const id in storedCart) {
-            const addedproduct = products.find(product => product.id === id);
+            const addedproduct = products.find(product => product._id === id);
             if (addedproduct) {
                 const quantity = storedCart[id];
                 addedproduct.quantity = quantity;

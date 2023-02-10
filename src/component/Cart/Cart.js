@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { themeContext } from '../../Context';
 import { getproduct, removeFromDb } from '../../utilities/fakedb';
 import useCart from '../data/useCart';
 import useProducts from '../data/useProducts';
@@ -6,6 +8,8 @@ import Header from '../Header/Header';
 import Singlecart from './Singlecart';
 
 const Cart = () => {
+    const theme = useContext(themeContext);
+    const darkMode = theme.state.darkMode;
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products);
     // const [quantitys, setQuantitys] = useState(cart.quantity)
@@ -15,9 +19,9 @@ const Cart = () => {
     }
 
     const HandleremoveCart = (product) => {
-        const rest = cart.filter(pd => pd.id !== product.id)
+        const rest = cart.filter(pd => pd._id !== product._id)
         setCart(rest)
-        removeFromDb(product.id)
+        removeFromDb(product._id)
         // console.log(product)
     }
 
@@ -104,12 +108,25 @@ const Cart = () => {
 
                     <div className="cart-item">
                         {
-                            cart.map(single => <Singlecart id={single.id} decrease={decrease} Increase={Increase} HandleremoveCart={HandleremoveCart} single={single}></Singlecart>)
+                            cart.map(single => <Singlecart id={single._id} decrease={decrease} Increase={Increase} HandleremoveCart={HandleremoveCart} single={single}></Singlecart>)
                         }
                     </div>
 
 
 
+                </div>
+
+                <div className='d-flex justify-content-between'>
+                    <div>
+                        <Link to='/products'><button className='btn btn-info'>Continue Shopping</button></Link>
+
+
+                    </div>
+                    <div>
+                        <button className='btn btn-success me-3'>Checkout</button>
+                        <button className='btn btn-danger'>Clear cart</button>
+
+                    </div>
                 </div>
             </div>
 
@@ -124,7 +141,7 @@ const Cart = () => {
 
                 <div class="switcher-body">
                     {/* <button class="btn btn-primary btn-switcher shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-paint-bucket me-0"></i></button> */}
-                    <div class="offcanvas offcanvas-end shadow border-start-0 p-1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
+                    <div style={{ background: darkMode ? "#2a2b36" : "" }} class="offcanvas offcanvas-end shadow border-start-0 p-1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
                         <div class="offcanvas-header border-bottom">
                             <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Order summary</h5>
                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>

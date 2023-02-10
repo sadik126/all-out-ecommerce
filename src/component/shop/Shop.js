@@ -34,9 +34,20 @@ const Shop = () => {
     const [products] = useProducts();
     const [cart, setCart] = useState([]);
     const [search, setSearch] = useState([]);
+    const [pagecount, setPagecount] = useState(0)
     // console.log(search)
 
 
+
+    useEffect(() => {
+        fetch('http://localhost:6060/productcount')
+            .then(res => res.json())
+            .then(data => {
+                const count = data.count;
+                const pages = Math.ceil(count / 10)
+                setPagecount(pages)
+            })
+    }, [])
 
     const Handlesearch = (event) => {
         const Searchtext = event.target.value;
@@ -62,7 +73,7 @@ const Shop = () => {
 
 
     useEffect(() => {
-        fetch('../../fakeData/products.json')
+        fetch('http://localhost:6060/products')
             .then(res => res.json())
             .then(data => {
                 setSearch(data)
@@ -87,7 +98,7 @@ const Shop = () => {
         console.log(storedCart)
         const savedcart = [];
         for (const id in storedCart) {
-            const cartproduct = products.find(product => product.id === id)
+            const cartproduct = products.find(product => product._id === id)
 
             if (cartproduct) {
 
@@ -108,7 +119,7 @@ const Shop = () => {
     const addtocart = (product) => {
         const newitems = [...cart, product]
         setCart(newitems);
-        addToDb(product.id)
+        addToDb(product._id)
 
 
 
@@ -157,7 +168,7 @@ const Shop = () => {
 
                                         // search ? search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>) : products.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
 
-                                        search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
+                                        search.map(product => <Productdata key={product._id} product={product} addtocart={addtocart}></Productdata>)
 
 
 

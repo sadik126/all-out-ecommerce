@@ -22,9 +22,9 @@ const Singlecart = (props) => {
 
                     </div>
                     <div className="col-md-2 col-4 d-flex justify-content-between">
-                        <button onClick={() => Increase(single.id)} className='w-25 h-50 btn-outline-success'><i class="bi bi-plus"></i></button>
+                        <button onClick={() => Increase(single._id)} className='w-25 h-50 btn-outline-success'><i class="bi bi-plus"></i></button>
                         <p className='text-center w-full'>   {quantity} </p>
-                        <button onClick={() => decrease(single.id)} className='w-25 h-50 btn-outline-danger'><i class="bi bi-dash"></i></button>
+                        <button onClick={() => decrease(single._id)} className='w-25 h-50 btn-outline-danger'><i class="bi bi-dash"></i></button>
 
                     </div>
                     <div className="col-md-2 d-md-block d-none">

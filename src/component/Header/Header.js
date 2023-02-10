@@ -71,11 +71,12 @@ const Header = (props) => {
 
     const Handlesearch = props.Handlesearch;
     const [products, setProducts] = useState([])
+
     const [cart, setCart] = useState([]);
 
 
     useEffect(() => {
-        fetch('../../fakeData/products.json')
+        fetch('http://localhost:6060/products')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [products])
@@ -86,7 +87,7 @@ const Header = (props) => {
 
         const savedcart = [];
         for (const id in storedCart) {
-            const cartproduct = products.find(product => product.id === id)
+            const cartproduct = products.find(product => product._id === id)
 
             if (cartproduct) {
 
