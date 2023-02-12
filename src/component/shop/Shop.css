@@ -13,6 +13,11 @@
     margin: auto;
 }
 
+.selected {
+    background-color: azure;
+    color: black;
+}
+
 
 #offcanvasScrolling {
     transition: 0.9s;

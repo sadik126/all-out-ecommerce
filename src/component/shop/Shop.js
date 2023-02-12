@@ -31,10 +31,23 @@ const Shop = () => {
 
 
     // const [products, setProducts] = useState([])
-    const [products] = useProducts();
+    // const [products] = useProducts();
     const [cart, setCart] = useState([]);
     const [search, setSearch] = useState([]);
     const [pagecount, setPagecount] = useState(0)
+    const [page, setPage] = useState(0)
+    const [datainpage, setDatainpage] = useState(10)
+
+    const [products, setProducts] = useState([])
+    useEffect(() => {
+        fetch(`http://localhost:6060/products?page=${page}&size=${datainpage}`)
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data)
+                setLoading(true)
+                setSearch(data)
+            })
+    }, [page, datainpage])
     // console.log(search)
 
 
@@ -72,16 +85,21 @@ const Shop = () => {
     }
 
 
-    useEffect(() => {
-        fetch('http://localhost:6060/products')
-            .then(res => res.json())
-            .then(data => {
-                setSearch(data)
+    // useEffect(() => {
+    //     fetch('http://localhost:6060/products')
+    //         .then(res => res.json())
+    //         .then(data => {
+
+    //             setSearch(data)
 
 
-            })
-        setLoading(true)
-    }, [])
+
+
+    //         })
+
+    //     // setLoading(true)
+
+    // }, [])
 
 
     // useEffect(() => {
@@ -152,40 +170,91 @@ const Shop = () => {
             <Header cart={cart} Handlesearch={Handlesearch} quantity={quantity}></Header>
 
             {
-                loading ? <div>
-                    <div class="d-flex  search">
-                        <input onChange={Handlesearch} class="form-control me-2" type="search" placeholder='Search Your products' aria-label="Search" />
-                        {/* <button class="btn btn-outline-success" type="submit">Search</button> */}
-                    </div>
-                    <div className="products">
-                        <div className='card-body'>
-                            <h1 className='text-center'>All products</h1>
-                            <div className='product-grid'>
-                                <div className='row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3'>
+                loading ?
+                    <div>
+                        <div class="d-flex  search">
+                            <input onChange={Handlesearch} class="form-control me-2" type="search" placeholder='Search Your products' aria-label="Search" />
+                            {/* <button class="btn btn-outline-success" type="submit">Search</button> */}
+                        </div>
+                        <div className="products">
+                            <div className='card-body'>
+                                <h1 className='text-center'>All products</h1>
+                                <div className='product-grid'>
+                                    <div className='row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3'>
 
-                                    {
-
-
-                                        // search ? search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>) : products.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
-
-                                        search.map(product => <Productdata key={product._id} product={product} addtocart={addtocart}></Productdata>)
+                                        {
 
 
+                                            // search ? search.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>) : products.map(product => <Productdata key={product.id} product={product} addtocart={addtocart}></Productdata>)
 
-                                    }
+                                            search.map(product => <Productdata key={product._id} product={product} addtocart={addtocart}></Productdata>)
+
+
+
+                                        }
+
+                                        {/* <div>
+                                        {
+                                            [...Array(pagecount).keys()].map(number => <button>{number + 1}</button>)
+                                        }
+                                    </div> */}
+
+
+
+                                        <nav aria-label="..." className='w-100'>
+                                            <ul class="pagination justify-content-center">
+                                                {/* <li class="page-item disabled">
+                                                <a class="page-link" style={{ background: darkMode ? "#2a2b36" : "" }}>Previous</a>
+                                            </li> */}
+                                                {/* <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li> */}
+                                                {
+                                                    [...Array(pagecount).keys()].map(number => <li class="page-item"><button className={page === number ? "btn btn-primary active mx-md-2" : "btn btn-primary mx-md-2"} style={{ background: darkMode && page !== number ? "#1b2430" : "", color: darkMode ? 'white' : '' }} onClick={() => setPage(number)}>{number + 1}</button></li>)
+                                                }
+                                                {/* <li class="page-item">
+                                                <a class="page-link" style={{ background: darkMode ? "#2a2b36" : "" }} href="#">Next</a>
+                                            </li> */}
+
+
+
+                                                <div class="">
+                                                    <select onChange={e => setDatainpage(e.target.value)} class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                                        <option selected>Load your product data</option>
+                                                        <option value="5">5</option>
+                                                        <option value="10" selected>10</option>
+                                                        <option value="15">15</option>
+                                                    </select>
+                                                    {/* <label for="floatingSelect">Select your data</label> */}
+                                                </div>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div> : <BarLoader
-                    color={'#367bd6'}
-                    loading={loading}
-                    cssOverride={override}
-                    size={150}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />
+                    </div>
+                    :
+
+                    // <BarLoader
+                    //     color={'#367bd6'}
+                    //     loading={loading}
+                    //     cssOverride={override}
+                    //     size={150}
+                    //     aria-label="Loading Spinner"
+                    //     data-testid="loader"
+                    // />
+
+
+
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
 
 
             }

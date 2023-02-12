@@ -88,6 +88,7 @@ const Login = () => {
     const handlesigninBlur = event => {
         event.preventDefault();
         signInWithEmailAndPassword(email, password)
+        console.log(user)
     }
 
     const [products, setProducts] = useProducts();

@@ -42,7 +42,7 @@ const Social = () => {
     if (user || user1 || user2) {
         nevigate('/');
 
-        console.log(user2)
+        console.log(user)
     }
 
     let errorElement;
