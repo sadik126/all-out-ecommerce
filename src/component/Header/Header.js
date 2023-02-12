@@ -76,7 +76,7 @@ const Header = (props) => {
 
 
     useEffect(() => {
-        fetch('http://localhost:6060/products')
+        fetch('https://allout-server-95mqfixf7-sadik126.vercel.app/products')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [products])
