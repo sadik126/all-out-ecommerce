@@ -54,7 +54,7 @@ function App() {
     // }, 3000)
   }, [])
   return (
-    <div >
+    <div className='max-w-[1440px] mx-auto'>
 
       {
         loading ?

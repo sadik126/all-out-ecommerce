@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getproduct } from '../../utilities/fakedb';
+import Loading from '../Loading/Loading';
 
 const useCart = (products) => {
     const [cart, setCart] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const storedCart = getproduct();
@@ -13,9 +15,16 @@ const useCart = (products) => {
                 const quantity = storedCart[id];
                 addedproduct.quantity = quantity;
                 savedcart.push(addedproduct);
+                setLoading(true)
             }
         }
+        if (loading) {
+            return <Loading></Loading>
+        }
+
+
         setCart(savedcart)
+        setLoading(false)
     }, [cart])
     return [cart, setCart]
 };

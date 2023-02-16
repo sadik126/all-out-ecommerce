@@ -11,6 +11,9 @@ import '../Cart/Cart.css'
 import { useState } from 'react';
 import { ClipLoader, BarLoader } from 'react-spinners';
 import { themeContext } from '../../Context';
+import Servicebanner from '../Servicebanner/Servicebanner';
+import Short from '../Short/Short';
+import Officer from '../Officer/Officer';
 
 
 
@@ -74,6 +77,10 @@ const Home = () => {
 
                         <Banner name={data}></Banner>
                         <Services></Services>
+                        <Short></Short>
+                        <Servicebanner></Servicebanner>
+                        <Officer></Officer>
+
                         <Trusted></Trusted>
 
                     </div>

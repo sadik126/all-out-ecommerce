@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { themeContext } from '../../Context';
-import { getproduct, removeFromDb } from '../../utilities/fakedb';
+import { deleteShoppingCart, getproduct, removeFromDb } from '../../utilities/fakedb';
 import useCart from '../data/useCart';
 import useProducts from '../data/useProducts';
 import Header from '../Header/Header';
+import Loading from '../Loading/Loading';
 import Singlecart from './Singlecart';
 
 const Cart = () => {
@@ -12,6 +13,9 @@ const Cart = () => {
     const darkMode = theme.state.darkMode;
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products);
+
+
+    // const [loading,setLoading] = 
     // const [quantitys, setQuantitys] = useState(cart.quantity)
     // console.log(quantitys)
     const data = {
@@ -63,6 +67,10 @@ const Cart = () => {
         localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart));
     }
 
+    const removeallItem = () => {
+        deleteShoppingCart()
+    }
+
     let total = 0;
     let shipping = 0;
     let quantity = 0;
@@ -79,56 +87,62 @@ const Cart = () => {
     let tax = parseFloat((total * 10 / 100).toFixed(2));
 
     let grandtotal = total + shipping + tax;
+
+    // console.log(cart)
     return (
         <div>
             <Header></Header>
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-2 col-4">
-                        <p className='text-center'>Item</p>
+            {
+                cart?.length === 0 ? <h1 className='text-center'>There is no Item. please Add some products.<Link to='/products'>Shop here</Link></h1> : <div className="container">
+                    <div className="row">
+
+                        <div className="col-md-2 col-4">
+                            <p className='text-center'>Item</p>
+
+                        </div>
+                        <div className="col-md-2 d-md-block d-none">
+                            <p className='text-center'>Price</p>
+
+                        </div>
+                        <div className="col-md-2 col-4">
+                            <p className='text-center'>Quantity</p>
+
+                        </div>
+                        <div className="col-md-2 d-md-block d-none">
+                            <p className='text-center'>Subtotal</p>
+
+                        </div>
+                        <div className="col-md-4 col-4">
+                            <p className='text-center'>Remove</p>
+
+                        </div>
+                        <hr />
+
+                        <div className="cart-item">
+                            {
+                                cart.length > 0 ? cart.map(single => <Singlecart id={single._id} decrease={decrease} Increase={Increase} HandleremoveCart={HandleremoveCart} single={single}></Singlecart>) : <Loading></Loading>
+                            }
+                        </div>
+
+
 
                     </div>
-                    <div className="col-md-2 d-md-block d-none">
-                        <p className='text-center'>Price</p>
 
+                    <div className='d-flex justify-content-between'>
+                        <div>
+                            <Link to='/products'><button className='btn btn-info'>Continue Shopping</button></Link>
+
+
+                        </div>
+                        <div>
+                            <button className='btn btn-success me-3'>Checkout</button>
+                            <button onClick={removeallItem} className='btn btn-danger'>Clear cart</button>
+
+                        </div>
                     </div>
-                    <div className="col-md-2 col-4">
-                        <p className='text-center'>Quantity</p>
-
-                    </div>
-                    <div className="col-md-2 d-md-block d-none">
-                        <p className='text-center'>Subtotal</p>
-
-                    </div>
-                    <div className="col-md-4 col-4">
-                        <p className='text-center'>Remove</p>
-
-                    </div>
-                    <hr />
-
-                    <div className="cart-item">
-                        {
-                            cart.map(single => <Singlecart id={single._id} decrease={decrease} Increase={Increase} HandleremoveCart={HandleremoveCart} single={single}></Singlecart>)
-                        }
-                    </div>
-
-
-
                 </div>
+            }
 
-                <div className='d-flex justify-content-between'>
-                    <div>
-                        <Link to='/products'><button className='btn btn-info'>Continue Shopping</button></Link>
-
-
-                    </div>
-                    <div>
-                        <button className='btn btn-success me-3'>Checkout</button>
-                        <button className='btn btn-danger'>Clear cart</button>
-
-                    </div>
-                </div>
-            </div>
 
 
 
