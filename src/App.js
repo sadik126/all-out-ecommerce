@@ -23,6 +23,8 @@ import Themeprovider from './component/Themetoggle/Themeprovider';
 import { useContext } from 'react';
 import { themeContext } from './Context';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Checkout from './component/Checkout/Checkout';
+import Payment from './component/Payments/Payment';
 
 
 const auth = getAuth(app);
@@ -93,6 +95,9 @@ function App() {
                 </Requireauth>
 
               }></Route>
+
+              <Route path='/checkout' element={<Requireauth><Checkout></Checkout></Requireauth>}></Route>
+              <Route path='/payment/:id' element={<Requireauth><Payment></Payment></Requireauth>}></Route>
 
               <Route path='/home' element={<Home></Home>}></Route>
               <Route path='/products' element={<Shop></Shop>}></Route>

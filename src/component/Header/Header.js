@@ -118,7 +118,7 @@ const Header = (props) => {
                 <div class="">
                     <nav className="navbar sticky-top navbar-expand-lg  rounded">
                         <div class="container-fluid">	<Link className='logo' to="/"><img class="" src={image} alt="" /></Link>
-                            <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+                            <button className={darkMode ? "navbar-toggler bg-light" : "navbar-toggler bg-dark"} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
                             </button>
 
                             {/* <button onClick={() => setDarkmode()}>

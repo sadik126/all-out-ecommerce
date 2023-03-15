@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { themeContext } from '../../Context';
 import { deleteShoppingCart, getproduct, removeFromDb } from '../../utilities/fakedb';
@@ -13,6 +14,38 @@ const Cart = () => {
     const darkMode = theme.state.darkMode;
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products);
+    const [cartdata, setcartData] = useState(null);
+    const [loading, setLoading] = useState(true)
+
+
+    useEffect(() => {
+        // const storedCart = getproduct();
+        // const savedcart = [];
+        // for (const id in storedCart) {
+        //     const addedproduct = products.find(product => product._id === id);
+        //     if (addedproduct) {
+        //         const quantity = storedCart[id];
+        //         addedproduct.quantity = quantity;
+        //         savedcart.push(addedproduct);
+
+        //     }
+        // }
+
+
+
+        // setCart(savedcart)
+        const savedData = localStorage.getItem('shopping-cart');
+        if (savedData) {
+            setcartData(JSON.parse(savedData));
+        }
+        setLoading(false);
+
+    }, [])
+
+
+    if (loading) {
+        return <Loading></Loading>
+    }
 
 
     // const [loading,setLoading] = 
@@ -93,7 +126,8 @@ const Cart = () => {
         <div>
             <Header></Header>
             {
-                cart?.length === 0 ? <h1 className='text-center'>There is no Item. please Add some products.<Link to='/products'>Shop here</Link></h1> : <div className="container">
+                //    cart?.length === 0 ? <h1 className='text-center'>There is no Item. please Add some products.<Link to='/products'>Shop here</Link></h1> :
+                <div className="container">
                     <div className="row">
 
                         <div className="col-md-2 col-4">
@@ -120,7 +154,7 @@ const Cart = () => {
 
                         <div className="cart-item">
                             {
-                                cart.length > 0 ? cart.map(single => <Singlecart id={single._id} decrease={decrease} Increase={Increase} HandleremoveCart={HandleremoveCart} single={single}></Singlecart>) : <Loading></Loading>
+                                cart.map(single => <Singlecart id={single._id} decrease={decrease} Increase={Increase} HandleremoveCart={HandleremoveCart} single={single}></Singlecart>)
                             }
                         </div>
 
@@ -128,15 +162,15 @@ const Cart = () => {
 
                     </div>
 
-                    <div className='d-flex justify-content-between'>
+                    <div className='d-flex justify-content-between g-4'>
                         <div>
                             <Link to='/products'><button className='btn btn-info'>Continue Shopping</button></Link>
 
 
                         </div>
-                        <div>
-                            <button className='btn btn-success me-3'>Checkout</button>
-                            <button onClick={removeallItem} className='btn btn-danger'>Clear cart</button>
+                        <div className='d-flex g-5 flex-column'>
+                            <Link to='/checkout'> <button className='btn btn-success me-3'>Checkout</button></Link>
+                            <button onClick={removeallItem} className='btn btn-danger mt-3'>Clear cart</button>
 
                         </div>
                     </div>

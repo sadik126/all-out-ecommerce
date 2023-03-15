@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+// import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import app from '../../firebase.init';
@@ -10,11 +10,15 @@ import useProducts from '../data/useProducts';
 import useCart from '../data/useCart';
 import { useContext } from 'react';
 import { themeContext } from '../../Context';
+import { useUpdateProfile } from 'react-firebase-hooks/auth';
 
 const Signup = () => {
 
     const theme = useContext(themeContext);
     const darkMode = theme.state.darkMode;
+
+
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -25,11 +29,11 @@ const Signup = () => {
     const auth = getAuth(app);
     const nevigate = useNavigate();
 
-    const [
-        createUserWithEmailAndPassword,
-        user,
+    // const [
+    //     createUserWithEmailAndPassword,
+    //     user,
 
-    ] = useCreateUserWithEmailAndPassword(auth);
+    // ] = useCreateUserWithEmailAndPassword(auth);
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
@@ -52,34 +56,52 @@ const Signup = () => {
 
     const createUser = async (event) => {
         event.preventDefault();
-        console.log(email, password)
-        if (password !== confirmpassword) {
-            setError('your password didnt match ')
-            return;
-        }
 
-        if (password.length < 6) {
-            setError('password must be 6 charecter or longer')
-            return
-        }
+        await createUserWithEmailAndPassword(auth, email, password, { sendEmailVerification: true })
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                nevigate('/');
+                console.log(user)
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+
+        // if (password !== confirmpassword) {
+        //     setError('your password didnt match ')
+        //     return;
+        // }
+
+        // if (password.length < 6) {
+        //     setError('password must be 6 charecter or longer')
+        //     return
+        // }
 
 
 
 
-        await createUserWithEmailAndPassword(email, password, { sendEmailVerification: true });
+        // await createUserWithEmailAndPassword(email, password, { sendEmailVerification: true });
+
+        // console.log(user)
+
+
         await updateProfile({ displayName: name });
 
 
 
+        // createUserWithEmailAndPassword(auth, email, password)
+        //     .then(result => {
+        //         const cruser = result.user;
+        //         console.log(cruser);
 
-        // .then(result => {
-        //     const user = result.user;
-        //     console.log(user);
-
-        // })
-        // .catch(error => {
-        //     console.error(error)
-        // })
+        //     })
+        //     .catch(error => {
+        //         console.error(error)
+        //     })
 
 
     }
@@ -104,9 +126,9 @@ const Signup = () => {
 
     let grandtotal = total + shipping + tax;
 
-    if (user) {
-        nevigate('/');
-    }
+    // if (user) {
+    //     nevigate('/');
+    // }
 
 
     return (
@@ -125,11 +147,11 @@ const Signup = () => {
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input onBlur={handleemailBlur} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input onBlur={handleemailBlur} required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <label for="exampleInputPassword1" required class="form-label">Password</label>
                         <input onBlur={handlepasswordBlur} type="password" class="form-control" id="exampleInputPassword1" />
                     </div>
                     <div class="mb-3">

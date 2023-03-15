@@ -10,7 +10,7 @@ const Singlecart = (props) => {
                 <div className="row">
                     <div className="col-md-2 col-4">
                         <div className='d-flex'>
-                            <img class="rounded-circle w-25 img-fluid" src={img} alt="" />
+                            <img class="rounded-circle w-25 d-md-block d-none img-fluid" src={img} alt="" />
                             <p className='text-center'>{name.length > 12 ? name.slice(0, 10) + '....' : name}</p>
 
                         </div>

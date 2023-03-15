@@ -18,13 +18,11 @@ const useCart = (products) => {
                 setLoading(true)
             }
         }
-        if (loading) {
-            return <Loading></Loading>
-        }
+
 
 
         setCart(savedcart)
-        setLoading(false)
+
     }, [cart])
     return [cart, setCart]
 };
