@@ -36,7 +36,7 @@ const Orders = () => {
     const { data: orders = [], refetch, isLoading, isFetching } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:6060/orders?email=${user?.email}`)
+            const res = await fetch(`https://allout-server.vercel.app/orders?email=${user?.email}`)
             const data = await res.json()
             setLoading(false)
             return data
@@ -51,18 +51,24 @@ const Orders = () => {
 
 
     const deleteOrder = order => {
-        fetch(`http://localhost:6060/orders/${order._id}`, {
-            method: 'DELETE'
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if (data.deletedCount > 0) {
-                    toast(`${order.name} is deleted`)
-                    refetch()
-                }
+        const agree = window.confirm(`are you sure to delete`)
 
+        if (agree) {
+            fetch(`https://allout-server.vercel.app/orders/${order._id}`, {
+                method: 'DELETE'
             })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        toast(`${order.name} is deleted`)
+                        refetch()
+                    }
+
+                })
+
+        }
+
     }
 
     let total = 0;

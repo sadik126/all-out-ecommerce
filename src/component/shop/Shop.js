@@ -40,7 +40,7 @@ const Shop = () => {
 
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch(`https://allout-server-95mqfixf7-sadik126.vercel.app/products?page=${page}&size=${datainpage}`)
+        fetch(`https://allout-server.vercel.appproducts?page=${page}&size=${datainpage}`)
             .then(res => res.json())
             .then(data => {
                 setProducts(data)
@@ -53,7 +53,7 @@ const Shop = () => {
 
 
     useEffect(() => {
-        fetch('https://allout-server-95mqfixf7-sadik126.vercel.app/productcount')
+        fetch('https://allout-server.vercel.appproductcount')
             .then(res => res.json())
             .then(data => {
                 const count = data.count;
@@ -86,7 +86,7 @@ const Shop = () => {
 
 
     // useEffect(() => {
-    //     fetch('https://allout-server-95mqfixf7-sadik126.vercel.app/products')
+    //     fetch('https://allout-server.vercel.appproducts')
     //         .then(res => res.json())
     //         .then(data => {
 

@@ -17,7 +17,7 @@ const Payment = () => {
     const { data: orders = [], refetch, isLoading, isFetching } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:6060/orders/${id}`)
+            const res = await fetch(`https://allout-server.vercel.app/orders/${id}`)
             const data = await res.json()
             setLoading(false)
             return data

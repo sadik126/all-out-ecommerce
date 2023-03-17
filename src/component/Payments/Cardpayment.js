@@ -19,7 +19,7 @@ const Cardpayment = ({ orders }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:6060/create-payment-intent", {
+        fetch("https://allout-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ total }),
@@ -97,7 +97,7 @@ const Cardpayment = ({ orders }) => {
 
             }
 
-            fetch('http://localhost:6060/payments', {
+            fetch('https://allout-server.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

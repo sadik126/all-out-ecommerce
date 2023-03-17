@@ -65,7 +65,7 @@ const Checkout = () => {
         }
 
 
-        fetch('http://localhost:6060/orders', {
+        fetch('https://allout-server.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
