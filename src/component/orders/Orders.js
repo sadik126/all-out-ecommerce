@@ -13,6 +13,7 @@ import { themeContext } from '../../Context';
 import Loading from '../Loading/Loading';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import Confirmationmodal from '../Confirmationmodal/Confirmationmodal';
 
 const Orders = () => {
     const auth = getAuth(app);
@@ -22,6 +23,12 @@ const Orders = () => {
     const theme = useContext(themeContext);
     const darkMode = theme.state.darkMode;
     const [loading, setLoading] = useState(true)
+
+    const [deletingUser, setdeletingUser] = useState(null)
+
+    const closeModal = () => {
+        setdeletingUser(null)
+    }
 
 
 
@@ -40,15 +47,15 @@ const Orders = () => {
     }
 
 
-    const deleteOrder = id => {
-        fetch(`http://localhost:6060/orders/${id}`, {
+    const deleteOrder = order => {
+        fetch(`http://localhost:6060/orders/${order._id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
                 if (data.deletedCount > 0) {
-                    toast(`${user.name} is deleted`)
+                    toast(`${order.name} is deleted`)
                     refetch()
                 }
 
@@ -105,6 +112,18 @@ const Orders = () => {
 
 
                 </table>
+
+
+                {
+                    deletingUser && <Confirmationmodal
+                        title={`Are your sure you want to delete?`}
+                        message={`If you delete ${deletingUser.name}. it can not be undone`}
+                        closeModal={closeModal}
+                        modaldata={deleteOrder}
+                        deleteOrder={deleteOrder}
+
+                    ></Confirmationmodal>
+                }
 
             </div>
 
