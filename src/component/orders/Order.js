@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 const Order = (props) => {
     const {
-        _id, paid, total, firstname, lastname, email, phone, address, products,
+        _id, paid, total, firstname, lastname, email, phone, address, products, handleShow,
         transactionId } = props.orders
     return (
 
         <tr>
-            <th scope="row"> <button data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => props.deleteOrder(props.orders)} className='btn btn-outline-danger'>X</button></th>
+            <th scope="row"> <button onClick={() => props.deleteOrder(props.orders)} className='btn btn-outline-danger'>X</button></th>
             <td>{products.map(p => <p>{p.name} ({p.quantity})</p>)}</td>
 
 

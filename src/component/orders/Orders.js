@@ -23,6 +23,7 @@ const Orders = () => {
     const theme = useContext(themeContext);
     const darkMode = theme.state.darkMode;
     const [loading, setLoading] = useState(true)
+    const [show, setShow] = useState(false);
 
     const [deletingUser, setdeletingUser] = useState(null)
 
@@ -42,24 +43,26 @@ const Orders = () => {
         }
     })
 
+    const handleShow = () => setShow(true);
+
     if (isLoading || loading) {
         return <Loading></Loading>
     }
 
 
     const deleteOrder = order => {
-        // fetch(`http://localhost:6060/orders/${order._id}`, {
-        //     method: 'DELETE'
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data)
-        //         if (data.deletedCount > 0) {
-        //             toast(`${order.name} is deleted`)
-        //             refetch()
-        //         }
+        fetch(`http://localhost:6060/orders/${order._id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.deletedCount > 0) {
+                    toast(`${order.name} is deleted`)
+                    refetch()
+                }
 
-        //     })
+            })
     }
 
     let total = 0;
