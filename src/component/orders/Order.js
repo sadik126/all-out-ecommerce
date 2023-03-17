@@ -8,7 +8,7 @@ const Order = (props) => {
     return (
 
         <tr>
-            <th scope="row"> <label htmlFor="" data-bs-toggle="modal" data-bs-target="#exampleModal"><button onClick={() => props.deleteOrder(props.orders)} className='btn btn-outline-danger'>X</button></label></th>
+            <th scope="row"> <button data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => props.deleteOrder(props.orders)} className='btn btn-outline-danger'>X</button></th>
             <td>{products.map(p => <p>{p.name} ({p.quantity})</p>)}</td>
 
 

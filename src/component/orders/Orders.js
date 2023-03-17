@@ -48,18 +48,18 @@ const Orders = () => {
 
 
     const deleteOrder = order => {
-        fetch(`http://localhost:6060/orders/${order._id}`, {
-            method: 'DELETE'
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if (data.deletedCount > 0) {
-                    toast(`${order.name} is deleted`)
-                    refetch()
-                }
+        // fetch(`http://localhost:6060/orders/${order._id}`, {
+        //     method: 'DELETE'
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data)
+        //         if (data.deletedCount > 0) {
+        //             toast(`${order.name} is deleted`)
+        //             refetch()
+        //         }
 
-            })
+        //     })
     }
 
     let total = 0;
