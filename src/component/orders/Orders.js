@@ -3,10 +3,40 @@ import useCart from '../data/useCart';
 import useProducts from '../data/useProducts';
 import Header from '../Header/Header';
 import '../Cart/Cart.css';
+import Order from './Order';
+import { useQuery } from '@tanstack/react-query';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import app from '../../firebase.init';
+import { useContext } from 'react';
+import { themeContext } from '../../Context';
+import Loading from '../Loading/Loading';
+import { useState } from 'react';
 
 const Orders = () => {
+    const auth = getAuth(app);
+    const [user] = useAuthState(auth)
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products);
+    const theme = useContext(themeContext);
+    const darkMode = theme.state.darkMode;
+    const [loading, setLoading] = useState(true)
+
+
+
+    const { data: orders = [], refetch, isLoading, isFetching } = useQuery({
+        queryKey: ['orders'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:6060/orders?email=${user?.email}`)
+            const data = await res.json()
+            setLoading(false)
+            return data
+        }
+    })
+
+    if (isLoading || loading) {
+        return <Loading></Loading>
+    }
 
     let total = 0;
     let shipping = 0;
@@ -27,8 +57,41 @@ const Orders = () => {
     return (
         <div>
             <Header></Header>
-            <h1>this is orders{products.length}</h1>
-            <p> cart has {cart.length}</p>
+            {/* <h1>this is orders{products.length}</h1>
+            <p> cart has {cart.length}</p> */}
+
+            <div className='table-responsive'>
+                <table class="table align-middle" style={{ color: darkMode ? "white" : "" }}>
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Service name</th>
+
+                            <th scope="col">Total</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Payment</th>
+
+                            <th scope="col">Transaction id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            [...orders]?.reverse().map(order => <Order key={order._id} orders={order}></Order>)
+                        }
+
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+
+
 
 
 

@@ -80,6 +80,7 @@ const Checkout = () => {
                 if (data.acknowledged) {
 
                     toast.success('Purchase confirmed')
+
                     nevigate(`/payment/${data.insertedId}`)
 
 
