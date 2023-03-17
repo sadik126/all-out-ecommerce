@@ -15,9 +15,9 @@ const Themeprovider = ({ children }) => {
 
 
 
-    // useEffect(() => {
-    //   localStorage.setItem('theme', theme);
-    // }, [theme])
+    useEffect(() => {
+        localStorage.setItem('theme', theme);
+    }, [theme])
 
     return (
         <div>

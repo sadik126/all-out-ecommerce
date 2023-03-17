@@ -12,6 +12,7 @@ import { useContext } from 'react';
 import { themeContext } from '../../Context';
 import Loading from '../Loading/Loading';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Orders = () => {
     const auth = getAuth(app);
@@ -36,6 +37,22 @@ const Orders = () => {
 
     if (isLoading || loading) {
         return <Loading></Loading>
+    }
+
+
+    const deleteOrder = id => {
+        fetch(`http://localhost:6060/orders/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.deletedCount > 0) {
+                    toast(`${user.name} is deleted`)
+                    refetch()
+                }
+
+            })
     }
 
     let total = 0;
@@ -80,7 +97,7 @@ const Orders = () => {
                     </thead>
                     <tbody>
                         {
-                            [...orders]?.reverse().map(order => <Order key={order._id} orders={order}></Order>)
+                            [...orders]?.reverse().map(order => <Order key={order._id} deleteOrder={deleteOrder} orders={order}></Order>)
                         }
 
 
